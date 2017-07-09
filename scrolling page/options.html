@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Options page</title>
+  <style>
+    body {
+      height: 20000px;
+      background-image: url(img/skin.png);
+      background-attachment: fixed;
+    }
+
+    h1 {
+      color: #b0b0b0;
+    }
+
+    #wrapper {
+      width: 80%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      height: 600px;
+      margin: auto;
+      margin-top: 40px;
+      padding: 30px;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: #ffffff;
+    }
+
+    table {
+      width: 90%;
+      margin: auto;
+      border: 1px solid #c2c2c2;
+      padding: 5px;
+    }
+
+    table img {
+      display: block;
+    }
+
+    table img + img {
+      margin-top: 5px;
+      transform: rotate(180deg);
+    }
+
+    td {
+      border: 1px solid #c2c2c2;
+      padding: 10px;
+      padding-left: 16px;
+    }
+
+    td img{
+      width: 100%;
+      max-width: 50px;
+    }
+
+    td:hover {
+      background-color: #eeeeee;
+      cursor: pointer;
+    }
+
+    #btn_save{
+      background-image: linear-gradient(to top, #2f73ed, #96BCFF);
+      padding:8px;
+      border-radius: 25px;
+      color: #ffffff;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+      display: block;
+      width: 20%;
+      margin: auto;
+      margin-top: 150px;
+    }
+
+    #btn_save:hover{
+      background-image: linear-gradient(to top, #96BCFF, #2F73ED);
+    }
+
+    #message{
+      width: 400px;
+      height:100px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      background-color: rgba(150, 188, 255, 0.8);
+      position: fixed;
+      margin: auto;
+      left: 10px;
+      top: 10px;
+      border-radius: 0 80px 0 80px;
+      display: none;
+      text-align: center;
+    }
+
+    #message span{
+      font-size: 30px;
+      color: #ffffff;
+      line-height: 3em;
+    }
+  </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+  <table>
+    <caption><h1>Выбрать изображение</h1></caption>
+
+    <tr>
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/simple.png">
+          <img src="img/arrows/simple.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/blue.png">
+          <img src="img/arrows/blue.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/wood.png">
+          <img src="img/arrows/wood.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/round_wood.png">
+          <img src="img/arrows/round_wood.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/ball_wood.png">
+          <img src="img/arrows/ball_wood.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/hand.png">
+          <img src="img/arrows/hand.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/wood2.png">
+          <img src="img/arrows/wood2.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/wood3.png">
+          <img src="img/arrows/wood3.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/long.png">
+          <img src="img/arrows/long.png">
+        </div>
+      </td>
+
+      <td>
+        <div class="wrap">
+          <img src="img/arrows/border_wood.png">
+          <img src="img/arrows/border_wood.png">
+        </div>
+      </td>
+
+    </tr>
+
+  </table>
+
+  <a id="btn_save">Сохранить настройки</a>
+
+</div>
+
+<div id="message">
+  <span>Настройки сохранены</span>
+</div>
+
+</body>
+<script src="scripts/Arrow.js"></script>
+<script src="scripts/Container.js"></script>
+<script src="scripts/page_scroller.js"></script>
+<script src="scripts/options.js"></script>
+</html>
