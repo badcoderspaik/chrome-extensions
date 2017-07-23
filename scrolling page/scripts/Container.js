@@ -19,6 +19,7 @@ function Container(options) {
    * @type {HtmlDivElement}
    */
   var element = document.createElement('div'),
+    that = this,
     style = element.style,
     /**
      * Переменная, которая будет инициализироваться новым значением при очередном наведении указателя мыши на элемент
@@ -30,7 +31,16 @@ function Container(options) {
      * @type {Float}
      */
     last_opacity,
-
+    /**
+     * Позиция контейнера на странице</br>
+     * Может принимать одно из следующих значений: 'bottom_right', 'center_right', 'top_right',
+     * 'bottom_left', 'center_left', 'top_left', 'center_bottom'.</br>
+     * Настраиваемое свойство - задается в конструкторе контейнера через свойство options.position</br>
+     * либо методом setPosition() контейнера
+     * @private
+     * @property position
+     * @type {String}
+     */
     position = options.position || 'bottom_right';
   /**
    * html-класс dom элемента контейнера
@@ -40,7 +50,7 @@ function Container(options) {
    */
   element.className = 'for_arrow_container';
   /**
-   * Позиция dom элемента конейнера
+   * Позиция dom элемента конейнера ( css свойство style.position )
    * @private
    * @property style.position
    * @type {string}
@@ -57,7 +67,7 @@ function Container(options) {
   style.opacity = options.opacity || 0.5;
   element.style.transition = 'opacity 0.5s cubic-bezier(0, .5, .5, 1)';
   style.zIndex = 9999999999;
-  style.width = '70px';
+  style.width = '60px';
   /**
    * Добавляет в контейнер dom элемент с изображением стрелки
    * @method add
@@ -112,6 +122,17 @@ function Container(options) {
     }
   };
   this.setPosition(position);
+
+  this.updatePosition = function () {
+    this.setPosition('center_bottom');
+  };
+
+  window.onresize = function () {
+    if(position == 'center_bottom'){
+      that.updatePosition();
+      console.log(style.left);
+    }
+  };
   /**
    * Отображает контейнер
    * @method show

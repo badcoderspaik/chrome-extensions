@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>scrolling page\scripts\Arrow.js - Scrolling the page</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="..\assets\css\simple.png" title="Scrolling the page"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 1.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Arrow.html">Arrow</a></li>
+                                <li><a href="../classes/Container.html">Container</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: scrolling page\scripts\Arrow.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * Функция анимации прокрутки страницы вверх
+ * @property scrollUp
+ * @type {function}
+ */
+var scrollUp = &#x27;&#x27;;
+/**
+ * Функция анимации прокрутки страницы вниз
+ * @property scrollDown
+ * @type {string}
+ */
+var scrollDown = &#x27;&#x27;;
+/**
+ * Флаг, управляющий анимацией прокрутки страницы вверх
+ * @property up_jumping
+ * @type {boolean}
+ * @default false
+ */
+var up_jumping = false;
+/**
+ * Флаг, управляющий анимацией прокрутки страницы вниз
+ * @property down_jumping
+ * @type {boolean}
+ * @default false
+ */
+var down_jumping = false;
+
+/**
+ * Класс объекта, содержащего кнопку с изображением стрелки
+ * @class Arrow
+ * @param {Object} options Объект, свойства которого содержат значения для настройки объекта класса
+ * @constructor
+ */
+function Arrow(options) {
+  /**
+   * Объект с настрайкоми кнопки
+   * @private
+   * @property options
+   * @type {Object}
+   * @default {}
+   */
+  options = options || {};
+  /**
+   * @private
+   * dom елемент кнопки с изображением стрелки
+   * @property element
+   * @type {HtmlImageElement}
+   * @default HtmlImageElement
+   */
+  var element = document.createElement(&#x27;img&#x27;),
+    /**
+     * Скорость прокрутки. Настраиваемое свойство: задается через параметр конструктора options._speed
+     * или методом setSpeed(speed)
+     * @private
+     * @property _speed
+     * @type {Number}
+     */
+    _speed = options.speed || 10;
+  /**
+   * Атрибут alt изображения стрелки
+   * @property element.alt
+   * @type {string}
+   * @default &#x27;up&#x27;
+   */
+  //element.alt = options.alt || &#x27;up&#x27;;
+  /**
+   * Атрибут src - путь к файлу изображения стрелки.&lt;/br&gt;
+   * Настраиваемое свойство: задается через параметр options.alt конструктора класса
+   * @property element.src
+   * @type {string}
+   * @default &#x27;&#x27;
+   */
+  chrome.storage.sync.get(function (items) {
+    element.src = items.src || chrome.runtime.getURL(&#x27;img/arrows/simple.png&#x27;);
+  });
+
+  /**
+   * Атрибут class изображения.&lt;/br&gt;
+   * Настраиваемое свойство: задается через параметр options.src конструктора класса.
+   * @property element.className
+   * @type {string}
+   * @default &#x27;arrow_up&#x27;
+   */
+  element.className = options.type || &#x27;arrow_up&#x27;;
+  /**
+   * Атрибут element.style.display элемента изображения.&lt;/br&gt;
+   * Настраиваемое свойство: задается через параметр options.type конструктора класса.&lt;/br&gt;
+   * Может иметь одно из двух значений - &#x27;arrow_up&#x27; или &#x27;arrow_down&#x27;.
+   * @property element.style.display
+   * @type {string}
+   * @default &#x27;block&#x27;
+   */
+  element.style.display = &#x27;block&#x27;;
+  /**
+   * Атрибут element.style.cursor элемента изображения;&lt;/br&gt;
+   * задает вид указателя мыши при наведении на стрелку.
+   * @property element.style.cursor
+   * @type {string}
+   * @default &#x27;pointer&#x27;
+   */
+  element.style.margin = &#x27;auto&#x27;;
+  element.style.cursor = &#x27;pointer&#x27;;
+  if(options.is_arrow_down &amp;&amp; options.is_arrow_down === true) element.style.transform = &#x27;rotate(180deg)&#x27;;
+  /**
+   *Высота страницы
+   * @private
+   * @property page_height
+   * @type {number}
+   * @default number
+   */
+  var page_height = Math.max(
+    document.body.scrollHeight, document.documentElement.scrollHeight,
+    document.body.offsetHeight, document.documentElement.offsetHeight,
+    document.body.clientHeight, document.documentElement.clientHeight
+    ),
+    MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+    observer = new MutationObserver(function () {
+      page_height = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+      );
+      //alert(page_height);
+    });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+    attributes: true
+  });
+  /**
+   * Если в параметре options конструктора указано свойство options.margin со значением true,&lt;/br&gt;
+   * то изображение стрелки будет иметь нижнее поле marginBottom равное 5px.&lt;/br&gt; Оно служит для
+   * визуального разделения стрелок. Имеет смысл только для кнопки &#x27;вверх&#x27;
+   * @property margin
+   * @type {boolean}
+   */
+  if (options.margin &amp;&amp; options.margin === true) element.style.marginBottom = &#x27;5px&#x27;;
+  /**
+   * Возвращает dom элемент изображения
+   * @method getDomElement
+   * @return {HtmlImageElement}
+   */
+  this.getDomElement = function () {
+    return element;
+  };
+  /**
+   * Устанавливает скорость прокрутки
+   * @method setSpeed
+   * @param {number} speed Скорость прокрутки в пикселях
+   * @return undefined
+   */
+  this.setSpeed = function (speed) {
+    _speed = speed;
+  };
+  /**
+   * Устанавливает изображение кнопки
+   * @method setSrc
+   * @param {string} src путь к файлу изображения
+   * @return undefined
+   */
+  this.setSrc = function (src) {
+    element.src = src;
+  }
+  /**
+   * Обработчик нажатия кнопки &quot;вверх&quot;.&lt;/br&gt;
+   * Сбрасывает интервал прокрутки (если таковой запущен) вниз,&lt;/br&gt;
+   * устанавливает флаг up_jumping в true для предотвращения повторного запуска интервала прокрутки вверх,&lt;/br&gt;
+   * запускает интервал, в котором при каждом вызове функции страница на указанное число пикселей прокручивается вверх.&lt;/br&gt;
+   * Если позиция полосы прокрутки window.pageYOffset &lt;= 0 (что говорит о том, что страница прокручена в начало),&lt;/br&gt;
+   * происходит сброс интервала прокрутки и установка флага up_jumping в false. Флаг должен обязательно быть установлен&lt;/br&gt;
+   * в false, в противном случае произойдет блокировка последующих нажатий на кнопку вверх.
+   * @private
+   * @property jumpUp
+   * @type {function}
+   */
+  function jumpUp() {
+    clearInterval(scrollDown);
+    console.log(&#x27;up_jumping = &#x27; + up_jumping);
+    up_jumping = true;
+    scrollUp = setInterval(function () {
+      window.scrollBy(0, -_speed);
+      if (window.pageYOffset &lt;= 0) {
+        clearInterval(scrollUp);
+        up_jumping = false;
+      }
+    }, 10);
+  }
+
+  /**
+   * Обработчик нажатия кнопки &quot;вниз&quot;.&lt;/br&gt;
+   * Сбрасывает интервал прокрутки (если таковой запущен) вверх,&lt;/br&gt;
+   * устанавливает флаг down_jumping в true для предотвращения повторного запуска интервала прокрутки вниз,&lt;/br&gt;
+   * запускает интервал, в котором при каждом вызове функции страница на указанное число пикселей прокручивается вниз.&lt;/br&gt;
+   * Если позиция полосы прокрутки window.pageYOffset &gt;= page_height(высота страницы)&lt;/br&gt;
+   * (что говорит о том, что страница прокручена в конец),&lt;/br&gt;
+   * происходит сброс интервала прокрутки и установка флага down_jumping в false. Флаг должен обязательно быть установлен&lt;/br&gt;
+   * в false, в противном случае произойдет блокировка последующих нажатий на кнопку вниз.&lt;/br&gt;
+   * @private
+   * @property jumpDown
+   * @type {function}
+   */
+  function jumpDown() {
+    clearInterval(scrollUp);
+    down_jumping = true;
+    //page_height = document.documentElement.offsetHeight - window.innerHeight;
+    page_height = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight
+    );
+
+    scrollDown = setInterval(function () {
+      window.scrollBy(0, _speed);
+      page_height = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+      );
+      console.log(&quot;позиция прокрутки = &quot; + window.pageYOffset + &quot; высота документа = &quot; + (page_height - window.innerHeight));
+      if (Math.ceil(window.pageYOffset) &gt;= (page_height - window.innerHeight)) {
+        clearInterval(scrollDown);
+        down_jumping = false;
+      }
+    }, 10);
+
+  }
+
+  /**
+   * Срабатывает при нажатии на кнопки-стрелки &quot;вверх/вниз&quot;.&lt;/br&gt;
+   * Если класс элемента, на котором произошло событие клика равен &#x27;arrow_up&#x27;, значит нажата кнопка &quot;вверх&quot;.&lt;/br&gt;
+   * Если же класс равен &#x27;arrow_down&#x27;, значит нажата кнопка &quot;вниз&quot;.&lt;/br&gt;
+   * При нажати кнопки &quot;вверх&quot; флаг &#x27;down_jumping&#x27; обязательно должен быть установлен в false, потому как он&lt;/br&gt;
+   * снимает и устаналивает блокировку запуска интервавла прокрутки вниз. Так как разблокировка повторного&lt;/br&gt;
+   * запуска интервала прокрутки страницы вниз происходит лишь при достижении бегунка полосы прокрутки конца страницы&lt;/br&gt;
+   * внутри функции интервала, может случиться, что во время работы интервала прокрутки вниз будет нажата кнопка &quot;вверх&quot;&lt;/br&gt;
+   * и бегунок не достигнет конца страницы, что сделает невозможным разблокировку. Таким образом нажатие кнопки &quot;вверх&quot; -&lt;/br&gt;
+   * это второе место в коде, где необходимо сбросить флаг &#x27;down_jumping&#x27;.&lt;/br&gt;
+   * Аналогично при нажати кнопки &quot;вниз&quot; сбрасывается флаг &#x27;up_jumping&#x27;.&lt;/br&gt;
+   *@event onmousedown
+   * @param {Object} event Объект события
+   */
+  element.onmousedown = function (event) {
+    if (this.className == &#x27;arrow_up&#x27;) {
+      down_jumping = false;
+      if (up_jumping || window.pageYOffset &lt;= 0) return;
+      jumpUp();
+    }
+
+    if (this.className == &#x27;arrow_down&#x27;) {
+      up_jumping = false;
+      if (down_jumping || Math.ceil(window.pageYOffset) &gt;= (page_height - window.innerHeight)) return;
+      jumpDown();
+    }
+  };
+
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
