@@ -1,0 +1,497 @@
+{
+    "project": {
+        "name": "Scrolling the page",
+        "description": "google chrome extension",
+        "version": "1.0",
+        "logo": "assets/css/simple.png"
+    },
+    "files": {
+        "scripts\\Arrow.js": {
+            "name": "scripts\\Arrow.js",
+            "modules": {},
+            "classes": {
+                "Arrow": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "scripts\\Container.js": {
+            "name": "scripts\\Container.js",
+            "modules": {},
+            "classes": {
+                "Container": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "scripts\\page_scroller.js": {
+            "name": "scripts\\page_scroller.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Arrow": {
+            "name": "Arrow",
+            "shortname": "Arrow",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "scripts\\Arrow.js",
+            "line": 28,
+            "description": "Класс объекта, содержащего кнопку с изображением стрелки",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "Объект, свойства которого содержат значения для настройки объекта класса",
+                    "type": "Object"
+                }
+            ],
+            "is_constructor": 1
+        },
+        "Container": {
+            "name": "Container",
+            "shortname": "Container",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "scripts\\Container.js",
+            "line": 1,
+            "description": "Класс контейнера для кнопок",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "Объект, содержащий настройки объекта класса:\nString options.position - строка, от значения которой зависит расположение контейнера;</br>\nдолжна принимать одно из следующих значений: 'bottom_right', 'center_right', 'top_right',\n'bottom_left', 'center_left', 'top_left', 'center_bottom'.</br>\nПоложение контейнера на странице также может быть задано методом setPosition ( String position ) объекта класса.</br>\nFloat options.opacity - степень прозрачности контейнера, min - 0 ( полноя прозрачность ), max - 1 ( полная непрозрачность ).</br>\nСтепень прозрачности контейнера также может быть задана методом setOpacity ( Number opacity ) объекта класса",
+                    "type": "Object"
+                }
+            ],
+            "is_constructor": 1
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 1,
+            "description": "Функция анимации прокрутки страницы вверх",
+            "itemtype": "property",
+            "name": "scrollUp",
+            "type": "{function}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 7,
+            "description": "Функция анимации прокрутки страницы вниз",
+            "itemtype": "property",
+            "name": "scrollDown",
+            "type": "{string}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 13,
+            "description": "Флаг, управляющий анимацией прокрутки страницы вверх",
+            "itemtype": "property",
+            "name": "up_jumping",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 20,
+            "description": "Флаг, управляющий анимацией прокрутки страницы вниз",
+            "itemtype": "property",
+            "name": "down_jumping",
+            "type": "{boolean}",
+            "default": "false",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 35,
+            "description": "Объект с настрайкоми кнопки",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "options",
+            "type": "{Object}",
+            "default": "{}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 43,
+            "access": "private",
+            "tagname": "dom елемент кнопки с изображением стрелки",
+            "itemtype": "property",
+            "name": "element",
+            "type": "{HtmlImageElement}",
+            "default": "HtmlImageElement",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 51,
+            "description": "Скорость прокрутки. Настраиваемое свойство: задается через параметр конструктора options._speed\nили методом setSpeed(speed)",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_speed",
+            "type": "{Number}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 59,
+            "description": "Атрибут alt изображения стрелки",
+            "itemtype": "property",
+            "name": "element.alt",
+            "type": "{string}",
+            "default": "'up'",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 66,
+            "description": "Атрибут src - путь к файлу изображения стрелки.</br>\nНастраиваемое свойство: задается через параметр options.alt конструктора класса",
+            "itemtype": "property",
+            "name": "element.src",
+            "type": "{string}",
+            "default": "''",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 77,
+            "description": "Атрибут class изображения.</br>\nНастраиваемое свойство: задается через параметр options.src конструктора класса.",
+            "itemtype": "property",
+            "name": "element.className",
+            "type": "{string}",
+            "default": "'arrow_up'",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 85,
+            "description": "Атрибут element.style.display элемента изображения.</br>\nНастраиваемое свойство: задается через параметр options.type конструктора класса.</br>\nМожет иметь одно из двух значений - 'arrow_up' или 'arrow_down'.",
+            "itemtype": "property",
+            "name": "element.style.display",
+            "type": "{string}",
+            "default": "'block'",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 94,
+            "description": "Атрибут element.style.cursor элемента изображения;</br>\nзадает вид указателя мыши при наведении на стрелку.",
+            "itemtype": "property",
+            "name": "element.style.cursor",
+            "type": "{string}",
+            "default": "'pointer'",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 104,
+            "description": "Высота страницы",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "page_height",
+            "type": "{number}",
+            "default": "number",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 131,
+            "description": "Если в параметре options конструктора указано свойство options.margin со значением true,</br>\nто изображение стрелки будет иметь нижнее поле marginBottom равное 5px.</br> Оно служит для\nвизуального разделения стрелок. Имеет смысл только для кнопки 'вверх'",
+            "itemtype": "property",
+            "name": "margin",
+            "type": "{boolean}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 139,
+            "description": "Возвращает dom элемент изображения",
+            "itemtype": "method",
+            "name": "getDomElement",
+            "return": {
+                "description": "",
+                "type": "HtmlImageElement"
+            },
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 147,
+            "description": "Устанавливает скорость прокрутки",
+            "itemtype": "method",
+            "name": "setSpeed",
+            "params": [
+                {
+                    "name": "speed",
+                    "description": "Скорость прокрутки в пикселях",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "undefined"
+            },
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 156,
+            "description": "Устанавливает изображение кнопки",
+            "itemtype": "method",
+            "name": "setSrc",
+            "params": [
+                {
+                    "name": "src",
+                    "description": "путь к файлу изображения",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "undefined"
+            },
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 165,
+            "description": "Обработчик нажатия кнопки \"вверх\".</br>\nСбрасывает интервал прокрутки (если таковой запущен) вниз,</br>\nустанавливает флаг up_jumping в true для предотвращения повторного запуска интервала прокрутки вверх,</br>\nзапускает интервал, в котором при каждом вызове функции страница на указанное число пикселей прокручивается вверх.</br>\nЕсли позиция полосы прокрутки window.pageYOffset <= 0 (что говорит о том, что страница прокручена в начало),</br>\nпроисходит сброс интервала прокрутки и установка флага up_jumping в false. Флаг должен обязательно быть установлен</br>\nв false, в противном случае произойдет блокировка последующих нажатий на кнопку вверх.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "jumpUp",
+            "type": "{function}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 190,
+            "description": "Обработчик нажатия кнопки \"вниз\".</br>\nСбрасывает интервал прокрутки (если таковой запущен) вверх,</br>\nустанавливает флаг down_jumping в true для предотвращения повторного запуска интервала прокрутки вниз,</br>\nзапускает интервал, в котором при каждом вызове функции страница на указанное число пикселей прокручивается вниз.</br>\nЕсли позиция полосы прокрутки window.pageYOffset >= page_height(высота страницы)</br>\n(что говорит о том, что страница прокручена в конец),</br>\nпроисходит сброс интервала прокрутки и установка флага down_jumping в false. Флаг должен обязательно быть установлен</br>\nв false, в противном случае произойдет блокировка последующих нажатий на кнопку вниз.</br>",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "jumpDown",
+            "type": "{function}",
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Arrow.js",
+            "line": 229,
+            "description": "Срабатывает при нажатии на кнопки-стрелки \"вверх/вниз\".</br>\nЕсли класс элемента, на котором произошло событие клика равен 'arrow_up', значит нажата кнопка \"вверх\".</br>\nЕсли же класс равен 'arrow_down', значит нажата кнопка \"вниз\".</br>\nПри нажати кнопки \"вверх\" флаг 'down_jumping' обязательно должен быть установлен в false, потому как он</br>\nснимает и устаналивает блокировку запуска интервавла прокрутки вниз. Так как разблокировка повторного</br>\nзапуска интервала прокрутки страницы вниз происходит лишь при достижении бегунка полосы прокрутки конца страницы</br>\nвнутри функции интервала, может случиться, что во время работы интервала прокрутки вниз будет нажата кнопка \"вверх\"</br>\nи бегунок не достигнет конца страницы, что сделает невозможным разблокировку. Таким образом нажатие кнопки \"вверх\" -</br>\nэто второе место в коде, где необходимо сбросить флаг 'down_jumping'.</br>\nАналогично при нажати кнопки \"вниз\" сбрасывается флаг 'up_jumping'.</br>",
+            "itemtype": "event",
+            "name": "onmousedown",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Объект события",
+                    "type": "Object"
+                }
+            ],
+            "class": "Arrow"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 15,
+            "description": "dom элемент контейнера",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "element",
+            "type": "{HtmlDivElement}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 24,
+            "description": "Переменная, которая будет инициализироваться новым значением при очередном наведении указателя мыши на элемент\nконтейнера.</br> В переменную будет записываться текущее значение свойства opacity контейнера.</br> Это нужно для того,\nчтобы при отработке события mouseout на элементе его свойство opacity было установлено в прежнее значение, которое\nкак раз и записывается в переменную last_opacity",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "last_opacity",
+            "type": "{Float}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 34,
+            "description": "Позиция контейнера на странице</br>\nМожет принимать одно из следующих значений: 'bottom_right', 'center_right', 'top_right',\n'bottom_left', 'center_left', 'top_left', 'center_bottom'.</br>\nНастраиваемое свойство - задается в конструкторе контейнера через свойство options.position</br>\nлибо методом setPosition() контейнера",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "position",
+            "type": "{String}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 45,
+            "description": "html-класс dom элемента контейнера",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "element.className",
+            "type": "{string}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 52,
+            "description": "Позиция dom элемента конейнера ( css свойство style.position )",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "style.position",
+            "type": "{string}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 59,
+            "description": "Степень прозрачности конейнера - свойство element.style.opacity. Принимает значения от 0 до 1.</br>\nНастраиваемое свойство: задается через параметр конструктора options.opacity",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "style.opacity",
+            "type": "{float}",
+            "default": "0.5",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 71,
+            "description": "Добавляет в контейнер dom элемент с изображением стрелки",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "arrow",
+                    "description": "Объект класса Arrow",
+                    "type": "Arrow"
+                }
+            ],
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 79,
+            "description": "Устанавливает позицию контейнера на странице",
+            "itemtype": "method",
+            "name": "setPosition",
+            "params": [
+                {
+                    "name": "position",
+                    "description": "Строка, указывающая положение котейнера на странице.</br>\nДолжна принимать одно из следующих значений: 'bottom_right', 'center_right', 'top_right',\n'bottom_left', 'center_left', 'top_left', 'center_bottom'.",
+                    "type": "String"
+                }
+            ],
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 136,
+            "description": "Отображает контейнер",
+            "itemtype": "method",
+            "name": "show",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 143,
+            "description": "Скрывает контейнер",
+            "itemtype": "method",
+            "name": "hide",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 150,
+            "description": "Устанавливает степень прозрачности контейнера",
+            "itemtype": "method",
+            "name": "setOpacity",
+            "params": [
+                {
+                    "name": "level",
+                    "description": "Число от 0 до 1",
+                    "type": "Float"
+                }
+            ],
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 158,
+            "description": "Срабатывает при нахождении курсора над dom элементом контейнера.</br>\nСвойств opacity элемента при этом устанавливается в значение 1",
+            "itemtype": "event",
+            "name": "onmouseover",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Объект события",
+                    "type": "Object"
+                }
+            ],
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 168,
+            "description": "Срабатывает при выходе курсора с dom элемента контейнера.</br>\nСвойство opacity элемента при этом устанавливается в первоначальное значение",
+            "itemtype": "event",
+            "name": "onmouseover",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 177,
+            "description": "Объект класса Arrow. Кнопка \"вверх\"",
+            "itemtype": "property",
+            "name": "arrow_up",
+            "type": "{Arrow}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\Container.js",
+            "line": 188,
+            "description": "Объект класса Arrow. Кнопка \"вниз\"",
+            "itemtype": "property",
+            "name": "arrow_down",
+            "type": "{Arrow}",
+            "class": "Container"
+        },
+        {
+            "file": "scripts\\page_scroller.js",
+            "line": 1,
+            "description": "Created by Alexander Timofeev",
+            "class": ""
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nCreated by Alexander Timofeev",
+            "line": " scripts\\page_scroller.js:1"
+        }
+    ]
+}

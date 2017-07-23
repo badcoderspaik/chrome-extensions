@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>scrolling page\scripts\Container.js - Scrolling the page</title>
+    <title>scripts\Container.js - Scrolling the page</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -77,7 +77,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: scrolling page\scripts\Container.js</h1>
+<h1 class="file-heading">File: scripts\Container.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -102,6 +102,7 @@ function Container(options) {
    * @type {HtmlDivElement}
    */
   var element = document.createElement(&#x27;div&#x27;),
+    that = this,
     style = element.style,
     /**
      * Переменная, которая будет инициализироваться новым значением при очередном наведении указателя мыши на элемент
@@ -149,7 +150,7 @@ function Container(options) {
   style.opacity = options.opacity || 0.5;
   element.style.transition = &#x27;opacity 0.5s cubic-bezier(0, .5, .5, 1)&#x27;;
   style.zIndex = 9999999999;
-  style.width = &#x27;70px&#x27;;
+  style.width = &#x27;60px&#x27;;
   /**
    * Добавляет в контейнер dom элемент с изображением стрелки
    * @method add
@@ -204,6 +205,17 @@ function Container(options) {
     }
   };
   this.setPosition(position);
+
+  this.updatePosition = function () {
+    this.setPosition(&#x27;center_bottom&#x27;);
+  };
+
+  window.onresize = function () {
+    if(position == &#x27;center_bottom&#x27;){
+      that.updatePosition();
+      console.log(style.left);
+    }
+  };
   /**
    * Отображает контейнер
    * @method show
