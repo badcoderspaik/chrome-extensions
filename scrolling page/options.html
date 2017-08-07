@@ -8,6 +8,7 @@
       height: 20000px;
       background-image: url(img/skin.png);
       background-attachment: fixed;
+      position: relative;
     }
 
     h1 {
@@ -17,7 +18,6 @@
     #wrapper {
       width: 80%;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      height: 600px;
       margin: auto;
       margin-top: 40px;
       padding: 30px;
@@ -48,7 +48,7 @@
       padding-left: 16px;
     }
 
-    td img{
+    td img {
       width: 100%;
       max-width: 50px;
     }
@@ -58,9 +58,9 @@
       cursor: pointer;
     }
 
-    #btn_save{
+    #btn_save {
       background-image: linear-gradient(to top, #2f73ed, #96BCFF);
-      padding:8px;
+      padding: 8px;
       border-radius: 25px;
       color: #ffffff;
       font-size: 18px;
@@ -72,29 +72,79 @@
       margin-top: 150px;
     }
 
-    #btn_save:hover{
+    #btn_save:hover {
       background-image: linear-gradient(to top, #96BCFF, #2F73ED);
     }
 
-    #message{
-      width: 400px;
-      height:100px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      background-color: rgba(150, 188, 255, 0.8);
+    .areas {
       position: fixed;
-      margin: auto;
-      left: 10px;
-      top: 10px;
-      border-radius: 0 80px 0 80px;
-      display: none;
-      text-align: center;
+      width: 58px;
+      height: 100px;
+      border: 1px dashed red;
+      cursor: pointer;
     }
 
-    #message span{
-      font-size: 30px;
-      color: #ffffff;
-      line-height: 3em;
+    .areas:hover {
+      background-color: #eeeeee;
     }
+
+    #bottom_right {
+      right: 20px;
+      bottom: 50px;
+    }
+
+    #top_right {
+      right: 20px;
+      top: 50px;
+    }
+
+    #bottom_left {
+      left: 20px;
+      bottom: 50px;
+    }
+
+    #top_left {
+      left: 20px;
+      top: 50px;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    input[type=range]:focus {
+      outline: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 12.8px;
+      cursor: pointer;
+      animate: 0.2s;
+      box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+      background: rgba(131, 131, 251, 0.65);
+      border-radius: 25px;
+      border: 0px solid #000101;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+      border: 0px solid #000000;
+      height: 20px;
+      width: 80px;
+      border-radius: 50px;
+      background: #65001c;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -3.6px;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+      background: rgba(131, 131, 251, 0.85);
+    }
+
   </style>
 </head>
 <body>
@@ -102,7 +152,7 @@
 <div id="wrapper">
 
   <table>
-    <caption><h1>Выбрать изображение</h1></caption>
+    <caption><h1>Выбрать изображение :</h1></caption>
 
     <tr>
       <td>
@@ -179,17 +229,30 @@
 
   </table>
 
-  <a id="btn_save">Сохранить настройки</a>
+  <h1>Задайте прозрачность контейнера, используя ползунок :</h1>
 
-</div>
+  <input type="range" min=".05" max="1" step=".001">
 
-<div id="message">
-  <span>Настройки сохранены</span>
+  <h1>Выберите расположение кнопок, щелкнув по одной из семи красных зон</h1>
+
+  <div class="areas" id="bottom_right"></div>
+  <div class="areas" id="center_right"></div>
+  <div class="areas" id="top_right"></div>
+  <div class="areas" id="bottom_left"></div>
+  <div class="areas" id="center_left"></div>
+  <div class="areas" id="top_left"></div>
+  <div class="areas" id="center_bottom"></div>
+
 </div>
 
 </body>
 <script src="scripts/Arrow.js"></script>
 <script src="scripts/Container.js"></script>
 <script src="scripts/page_scroller.js"></script>
-<script src="scripts/options.js"></script>
+<script src="scripts/settings/init.js"></script>
+<script src="scripts/settings/Observer.js"></script>
+<script src="scripts/settings/Model.js"></script>
+<script src="scripts/settings/View.js"></script>
+<script src="scripts/settings/Controller.js"></script>
+
 </html>

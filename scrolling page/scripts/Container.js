@@ -63,8 +63,12 @@ function Container(options) {
    * @property style.opacity
    * @type {float}
    * @default 0.5
-   */
-  style.opacity = options.opacity || 0.5;
+   */style.opacity = 0;
+  chrome.storage.sync.get(function (items) {
+    style.opacity = items.opacity || 0.5;
+    console.log(items.opacity);
+  })
+
   element.style.transition = 'opacity 0.5s cubic-bezier(0, .5, .5, 1)';
   style.zIndex = 9999999999;
   style.width = '60px';
@@ -76,6 +80,15 @@ function Container(options) {
   this.add = function (arrow) {
     element.appendChild(arrow.getDomElement());
   };
+
+  this.resetPosition = function () {
+    chrome.storage.sync.get(function (items) {
+      var this_height = items.area_height || '105px';
+      this_height = parseInt(this_height);
+      style.top = window.innerHeight / 2 - this_height / 2 + 'px';
+    });
+  };
+
   /**
    * Устанавливает позицию контейнера на странице
    * @method setPosition
@@ -86,51 +99,72 @@ function Container(options) {
   this.setPosition = function (position) {
     switch (position) {
       case 'bottom_right':
+        style.left = null;
+        style.top = null;
         style.right = '20px';
         style.bottom = '50px';
-      break;
+        break;
 
       case 'top_right':
+        style.left = null;
+        style.bottom = null;
         style.right = '20px';
         style.top = '50px';
-      break;
+        break;
 
       case 'bottom_left':
+        style.right = null;
+        style.top = null;
         style.left = '20px';
         style.bottom = '50px';
-      break;
+        break;
 
       case 'top_left':
+        style.right = null;
+        style.bottom = null;
         style.left = '20px';
         style.top = '50px';
-      break;
+        break;
 
       case 'center_right':
+        style.left = null;
+        style.bottom = null;
         style.right = '20px';
-        style.top = window.innerHeight/2 - 72 + 'px';
-      break;
+        this.resetPosition();
+        break;
 
       case 'center_left':
+        style.right = null;
+        style.bottom = null;
         style.left = '20px';
-        style.top = window.innerHeight/2 - 72 + 'px';
-      break;
+        this.resetPosition();
+        break;
 
       case 'center_bottom':
-        style.left = window.innerWidth/2 - 35 + 'px';
+        style.right = null;
+        style.top = null;
+        style.left = window.innerWidth / 2 - 30 + 'px';
         style.bottom = '20px';
-      break;
+        break;
     }
   };
-  this.setPosition(position);
+
+  chrome.storage.sync.get(function (items) {
+    that.setPosition(items.position || 'bottom_right');
+  });
 
   this.updatePosition = function () {
     this.setPosition('center_bottom');
   };
 
+  this.getElement = function () {
+    return element;
+  };
+
   window.onresize = function () {
-    if(position == 'center_bottom'){
+    if (position == 'center_bottom') {
+      console.log('resized');
       that.updatePosition();
-      console.log(style.left);
     }
   };
   /**
@@ -197,8 +231,11 @@ function Container(options) {
     speed: 200,
     alt: 'down',
   });
+  style.height = parseInt(getComputedStyle(this.arrow_up.getDomElement()).height);
+
   this.add(this.arrow_up);
   this.add(this.arrow_down);
+
 
   document.body.appendChild(element);
 
