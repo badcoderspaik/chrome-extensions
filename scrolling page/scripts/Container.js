@@ -63,15 +63,18 @@ function Container(options) {
    * @property style.opacity
    * @type {float}
    * @default 0.5
-   */style.opacity = 0;
+   */
+  style.opacity = 0;
   chrome.storage.sync.get(function (items) {
     style.opacity = items.opacity || 0.5;
-    console.log(items.opacity);
   })
 
   element.style.transition = 'opacity 0.5s cubic-bezier(0, .5, .5, 1)';
   style.zIndex = 9999999999;
   style.width = '60px';
+  // chrome.storage.sync.get(function (items) {
+  //   style.height = items.area_height || '105px';
+  // });
   /**
    * Добавляет в контейнер dom элемент с изображением стрелки
    * @method add

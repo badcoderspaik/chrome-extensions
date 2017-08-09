@@ -7,7 +7,6 @@ var OPTIONS = (function (opt) {
       opacityObserver = new opt.Observer,
 
       setSrc = function (src) {
-        if (!src) return;
         settings.src = src;
         chrome.storage.sync.set(settings, function () {
         });
@@ -19,7 +18,6 @@ var OPTIONS = (function (opt) {
       },
 
       setPosition = function (position) {
-        if (!position) return;
         settings.position = position;
         chrome.storage.sync.set(settings, function () {
         });
@@ -61,7 +59,7 @@ var OPTIONS = (function (opt) {
 
       getOpacityObserver = function () {
         return areaObserver;
-      }
+      };
 
     return {
 
@@ -69,17 +67,17 @@ var OPTIONS = (function (opt) {
       getAreaObserver: getAreaObserver,
       getOpacityObserver: getOpacityObserver,
 
-      getSrc: getSrc,
       setSrc: setSrc,
+      getSrc: getSrc,
 
-      getPosition: getPosition,
       setPosition: setPosition,
+      getPosition: getPosition,
 
-      getAreaHeight: getAreaHeight,
       setAreaHeight: setAreaHeight,
+      getAreaHeight: getAreaHeight,
 
-      getOpacity: getOpacity,
-      setOpacity: setOpacity
+      setOpacity: setOpacity,
+      getOpacity: getOpacity
 
     }
 
