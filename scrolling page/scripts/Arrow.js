@@ -1,4 +1,3 @@
-
 /**
  * Функция анимации прокрутки страницы вверх
  * @property scrollUp
@@ -56,7 +55,10 @@ function Arrow(options) {
      * @property _speed
      * @type {Number}
      */
-    _speed = options.speed || 10;
+    _speed;
+  chrome.storage.sync.get(function (items) {
+    _speed = items.speed || options.speed;
+  });
   /**
    * Атрибут alt изображения стрелки
    * @property element.alt
@@ -102,7 +104,7 @@ function Arrow(options) {
   element.style.margin = 'auto';
   element.style.cursor = 'pointer';
   element.style.width = '50px';
-  if(options.is_arrow_down && options.is_arrow_down === true) element.style.transform = 'rotate(180deg)';
+  if (options.is_arrow_down && options.is_arrow_down === true) element.style.transform = 'rotate(180deg)';
   /**
    *Высота страницы
    * @private
@@ -178,7 +180,7 @@ function Arrow(options) {
    */
   function jumpUp() {
     clearInterval(scrollDown);
-    console.log('up_jumping = ' + up_jumping);
+    console.log(_speed);
     up_jumping = true;
     scrollUp = setInterval(function () {
       window.scrollBy(0, -_speed);
@@ -219,7 +221,7 @@ function Arrow(options) {
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
       );
-      
+
       if (Math.ceil(window.pageYOffset) >= (page_height - window.innerHeight)) {
         clearInterval(scrollDown);
         down_jumping = false;

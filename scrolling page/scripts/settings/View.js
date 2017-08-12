@@ -6,16 +6,18 @@ var OPTIONS = (function (opt) {
       area_center_right = document.getElementById('center_right'),
       area_center_left = document.getElementById('center_left'),
       area_center_bottom = document.getElementById('center_bottom'),
-      range = document.querySelector('input[type=range'),
+      opacity_range = document.querySelector('#opacity_range'),
+      speed_range = document.querySelector('#speed_range'),
+      speed_output = document.querySelector('#speed_output'),
       area_height,
       element_width,
       pos_center_bottom,
       pos_center_right,
       pos_center_left,
 
-      setCenterRight = function () {
+      setCenterRight = function (area_height) {
         chrome.storage.sync.get(function (items) {
-          area_height = parseInt(items.area_height) || 105,
+          area_height = parseInt(area_height || items.area_height) || 105,
             pos_center_right = (window.innerHeight / 2 - area_height / 2);
           area_center_right.style.right = '20px';
           area_center_right.style.top = pos_center_right + 'px';
@@ -23,9 +25,9 @@ var OPTIONS = (function (opt) {
 
       },
 
-      setCenterLeft = function () {
+      setCenterLeft = function (area_height) {
         chrome.storage.sync.get(function (items) {
-          area_height = parseInt(items.area_height) || 105,
+          area_height = parseInt(area_height || items.area_height) || 105,
             pos_center_left = (window.innerHeight / 2 - area_height / 2);
           area_center_left.style.left = '20px';
           area_center_left.style.top = pos_center_left + 'px';
@@ -45,17 +47,22 @@ var OPTIONS = (function (opt) {
     setCenterBottom();
 
     data.getSrcObserver().addObserver(function () {
-      var src = data.getSrc();
-      panel.arrow_down.setSrc(src);
-      panel.arrow_up.setSrc(src);
+      panel.arrow_down.setSrc(data.getSrc());
+      panel.arrow_up.setSrc(data.getSrc());
     });
 
-    data.getAreaObserver().addObserver(function () {
-      panel.setPosition(data.getPosition());
+    data.getAreaObserver().addObserver(function (area_height) {
+      panel.setPosition(data.getPosition(), area_height);
     });
 
     data.getOpacityObserver().addObserver(function () {
       panel.setOpacity(data.getOpacity());
+    });
+
+    data.getSpeedObserver().addObserver(function () {
+      panel.arrow_down.setSpeed(data.getSpeed());
+      panel.arrow_up.setSpeed(data.getSpeed());
+      console.log(data.getSpeed());
     });
 
     return {
@@ -73,8 +80,16 @@ var OPTIONS = (function (opt) {
         return areas;
       },
 
-      getRange: function () {
-        return range;
+      getOpacityRange: function () {
+        return opacity_range;
+      },
+
+      getSpeedRange: function () {
+        return speed_range;
+      },
+
+      getSpeedOutput: function () {
+        return speed_output;
       },
 
       setCenterRight: setCenterRight,

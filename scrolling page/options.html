@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Options page</title>
-  <script src="scripts/preloader.js"></script>
   <style>
     body {
       height: 20000px;
@@ -232,7 +231,11 @@
 
   <h1>Задайте прозрачность кнопок, используя ползунок :</h1>
 
-  <input type="range" min=".05" max="1" step=".001">
+  <input type="range" id="opacity_range" min=".05" max="1" step=".001">
+
+  <h1>Задайте скорость прокрутки, используя ползунок : <span id="speed_output"></span></h1>
+
+  <input type="range" id="speed_range" min="10" max="10000">
 
   <h1>Выберите расположение кнопок, щелкнув по одной из семи красных зон</h1>
 

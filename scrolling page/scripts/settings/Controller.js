@@ -3,7 +3,9 @@ var OPTIONS = (function (opt) {
   opt.Controller = (function (data, view) {
     var cells = view.getCells(),
       areas = view.getAreas(),
-      range = view.getRange(),
+      opacity_range = view.getOpacityRange(),
+      speed_range = view.getSpeedRange(),
+      speed_output = view.getSpeedOutput(),
       c_length = cells.length,
       a_length = areas.length,
       panel_height,
@@ -12,13 +14,15 @@ var OPTIONS = (function (opt) {
     for (i = 0; i < c_length; i++) {
       cells[i].onmousedown = function () {
         this.style.outline = '1px solid blue';
+        panel.arrow_down.setSrc(view.findImg(this));
+        panel.arrow_up.setSrc(view.findImg(this));
         data.setSrc(view.findImg(this));
         panel_height = getComputedStyle(panel.getElement()).height;
         data.setAreaHeight(panel_height);
-        console.log(data.getAreaHeight());
         chrome.storage.sync.get(function (items) {
+          console.log('area_height = ' + items.area_height);
           if (items.position === 'center_right' || items.position === 'center_left') {
-            panel.resetPosition();
+            panel.resetPosition(panel_height);
           }
         });
 
@@ -26,8 +30,8 @@ var OPTIONS = (function (opt) {
           areas[i].style.height = panel_height;
         }
 
-        view.setCenterRight();
-        view.setCenterLeft();
+        view.setCenterRight(panel_height);
+        view.setCenterLeft(panel_height);
 
       };
 
@@ -42,16 +46,29 @@ var OPTIONS = (function (opt) {
 
     for (i = 0; i < a_length; i++) {
       areas[i].onclick = function () {
-        data.setPosition(this.id);
+        var that = this;
+        chrome.storage.sync.get(function (items) {
+          var height = items.area_height || '105px';
+          data.setPosition(that.id, height);
+
+        });
       };
     }
 
-    range.oninput = function () {
+    opacity_range.oninput = function () {
       panel.setOpacity(this.value);
     };
 
-    range.onchange = function () {
+    opacity_range.onchange = function () {
       data.setOpacity(this.value);
+    };
+
+    speed_range.onchange = function () {
+      data.setSpeed(this.value);
+    };
+
+    speed_range.oninput = function () {
+      speed_output.textContent = this.value + 'px';
     }
 
   }(opt.Model, opt.View));
@@ -59,27 +76,4 @@ var OPTIONS = (function (opt) {
   return opt;
 
 }(OPTIONS || {}));
-
-// (function () {
-//   chrome.storage.sync.get(function (items) {
-//     var src = items.src || chrome.runtime.getURL('img/arrows/simple.png'),
-//       //position = items.position || 'bottom_right',
-//       areas = OPTIONS.View.getAreas(),
-//       range = OPTIONS.View.getRange(),
-//       opacity = items.opacity || 0.2,
-//       a_length = areas.length,
-//       areas_height = items.area_height || 105,
-//       i;
-//
-//     for (i = 0; i < a_length; i++) {
-//       areas[i].style.height = areas_height;
-//     }
-//
-//     panel.arrow_up.setSrc(src);
-//     panel.arrow_down.setSrc(src);
-//     panel.setOpacity(opacity);
-//     range.value = items.opacity || 0.5;
-//   });
-//
-// }());
 

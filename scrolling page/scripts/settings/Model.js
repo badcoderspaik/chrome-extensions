@@ -5,23 +5,25 @@ var OPTIONS = (function (opt) {
       srcObserver = new opt.Observer,
       areaObserver = new opt.Observer,
       opacityObserver = new opt.Observer,
+      speedObserver = new opt.Observer,
+      speed_output_observer = new opt.Observer,
 
       setSrc = function (src) {
         settings.src = src;
         chrome.storage.sync.set(settings, function () {
         });
-        srcObserver.notify();
+        //srcObserver.notify();
       },
 
       getSrc = function () {
         return settings.src;
       },
 
-      setPosition = function (position) {
+      setPosition = function (position, area_height) {
         settings.position = position;
         chrome.storage.sync.set(settings, function () {
         });
-        areaObserver.notify();
+        areaObserver.notify(area_height);
       },
 
       getPosition = function () {
@@ -46,8 +48,12 @@ var OPTIONS = (function (opt) {
         return areaObserver;
       },
 
-      getOpacity = function () {
-        return settings.opacity;
+      getOpacityObserver = function () {
+        return areaObserver;
+      },
+
+      getSpeedObserver = function () {
+        return speedObserver;
       },
 
       setOpacity = function (opacity) {
@@ -57,8 +63,19 @@ var OPTIONS = (function (opt) {
         opacityObserver.notify();
       },
 
-      getOpacityObserver = function () {
-        return areaObserver;
+      getOpacity = function () {
+        return settings.opacity;
+      },
+
+      setSpeed = function (speed) {
+        settings.speed = speed;
+        chrome.storage.sync.set(settings, function () {
+        });
+        speedObserver.notify();
+      },
+
+      getSpeed = function () {
+        return settings.speed;
       };
 
     return {
@@ -66,6 +83,7 @@ var OPTIONS = (function (opt) {
       getSrcObserver: getSrcObserver,
       getAreaObserver: getAreaObserver,
       getOpacityObserver: getOpacityObserver,
+      getSpeedObserver: getSpeedObserver,
 
       setSrc: setSrc,
       getSrc: getSrc,
@@ -77,7 +95,10 @@ var OPTIONS = (function (opt) {
       getAreaHeight: getAreaHeight,
 
       setOpacity: setOpacity,
-      getOpacity: getOpacity
+      getOpacity: getOpacity,
+
+      setSpeed: setSpeed,
+      getSpeed: getSpeed
 
     }
 

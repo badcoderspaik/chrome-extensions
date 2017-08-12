@@ -84,12 +84,20 @@ function Container(options) {
     element.appendChild(arrow.getDomElement());
   };
 
-  this.resetPosition = function () {
+  this.presetPosition = function () {
     chrome.storage.sync.get(function (items) {
-      var this_height = items.area_height || '105px';
-      this_height = parseInt(this_height);
-      style.top = window.innerHeight / 2 - this_height / 2 + 'px';
+      if (items.position === 'center_right' || items.position === 'center_left') {
+        var preset_height = items.area_height || '105px';
+        preset_height = parseInt(preset_height);
+        style.top = window.innerHeight / 2 - preset_height / 2 + 'px';
+      }
     });
+  };
+
+  this.resetPosition = function (area_height) {
+    var this_height = area_height;
+    this_height = parseInt(this_height);
+    style.top = window.innerHeight / 2 - this_height / 2 + 'px';
   };
 
   /**
@@ -99,7 +107,7 @@ function Container(options) {
    * Должна принимать одно из следующих значений: 'bottom_right', 'center_right', 'top_right',
    * 'bottom_left', 'center_left', 'top_left', 'center_bottom'.
    */
-  this.setPosition = function (position) {
+  this.setPosition = function (position, top) {
     switch (position) {
       case 'bottom_right':
         style.left = null;
@@ -133,14 +141,20 @@ function Container(options) {
         style.left = null;
         style.bottom = null;
         style.right = '20px';
-        this.resetPosition();
+        if (!top) this.resetPosition();
+        console.log(top);
+        if (top) {
+          console.log(top);
+          this.resetPosition(top);
+        }
         break;
 
       case 'center_left':
         style.right = null;
         style.bottom = null;
         style.left = '20px';
-        this.resetPosition();
+        if (!top) this.resetPosition();
+        if (top) this.resetPosition(top);
         break;
 
       case 'center_bottom':
@@ -154,6 +168,7 @@ function Container(options) {
 
   chrome.storage.sync.get(function (items) {
     that.setPosition(items.position || 'bottom_right');
+    that.presetPosition();
   });
 
   this.updatePosition = function () {
