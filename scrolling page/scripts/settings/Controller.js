@@ -26,8 +26,6 @@ var OPTIONS = (function (opt) {
 
         data.setSrc(view.findImg(this));
         panel_height = view.getImageHeight(this) * 2 + 5 +'px';
-        console.log(panel_height);
-        //panel_height = getComputedStyle(panel.getElement()).height;
         data.setAreaHeight(panel_height);
         chrome.storage.sync.get(function (items) {
           if (items.position === 'center_right' || items.position === 'center_left') {

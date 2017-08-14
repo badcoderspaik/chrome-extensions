@@ -95,9 +95,18 @@ function Container(options) {
   };
 
   this.resetPosition = function (area_height) {
-    var this_height = area_height;
-    this_height = parseInt(this_height);
-    style.top = window.innerHeight / 2 - this_height / 2 + 'px';
+    if (area_height) {
+      area_height = parseInt(area_height);
+      style.top = window.innerHeight / 2 - area_height / 2 + 'px';
+    } else {
+      chrome.storage.sync.get(function (items) {
+        if (items.position === 'center_right' || items.position === 'center_left') {
+          var preset_height = items.area_height || '105px';
+          preset_height = parseInt(preset_height);
+          style.top = window.innerHeight / 2 - preset_height / 2 + 'px';
+        }
+      });
+    }
   };
 
   /**
@@ -151,8 +160,7 @@ function Container(options) {
         style.right = null;
         style.bottom = null;
         style.left = '20px';
-        if (!top) this.resetPosition();
-        if (top) this.resetPosition(top);
+        this.resetPosition(top);
         break;
 
       case 'center_bottom':
@@ -166,7 +174,7 @@ function Container(options) {
 
   chrome.storage.sync.get(function (items) {
     that.setPosition(items.position || 'bottom_right');
-    that.presetPosition();
+    //that.presetPosition();
   });
 
   this.updatePosition = function () {
@@ -179,7 +187,6 @@ function Container(options) {
 
   window.onresize = function () {
     if (position == 'center_bottom') {
-      console.log('resized');
       that.updatePosition();
     }
   };

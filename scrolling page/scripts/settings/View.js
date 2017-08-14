@@ -62,7 +62,6 @@ var OPTIONS = (function (opt) {
     data.getSpeedObserver().addObserver(function () {
       panel.arrow_down.setSpeed(data.getSpeed());
       panel.arrow_up.setSpeed(data.getSpeed());
-      console.log(data.getSpeed());
     });
 
     return {
