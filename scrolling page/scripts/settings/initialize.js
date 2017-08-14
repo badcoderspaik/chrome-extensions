@@ -16,6 +16,7 @@ var OPTIONS = (function (opt) {
 
     panel.arrow_up.setSrc(src);
     panel.arrow_down.setSrc(src);
+    console.log(panel.arrow_down.getDomElement());
     panel.setOpacity(opacity);
     opacity_range.value = items.opacity || 0.5;
     speed_range.value = items.speed || 200;

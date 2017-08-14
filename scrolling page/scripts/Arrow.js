@@ -103,7 +103,7 @@ function Arrow(options) {
    */
   element.style.margin = 'auto';
   element.style.cursor = 'pointer';
-  element.style.width = '50px';
+  //element.style.width = '50px';
   if (options.is_arrow_down && options.is_arrow_down === true) element.style.transform = 'rotate(180deg)';
   /**
    *Высота страницы

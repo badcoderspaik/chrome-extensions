@@ -72,6 +72,11 @@ var OPTIONS = (function (opt) {
         return img.src;
       },
 
+      getImageHeight: function (node) {
+        var img = node.querySelector('img');
+        return img.height;
+      },
+
       getCells: function () {
         return cells;
       },

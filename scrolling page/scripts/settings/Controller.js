@@ -14,13 +14,22 @@ var OPTIONS = (function (opt) {
     for (i = 0; i < c_length; i++) {
       cells[i].onmousedown = function () {
         this.style.outline = '1px solid blue';
+
         panel.arrow_down.setSrc(view.findImg(this));
         panel.arrow_up.setSrc(view.findImg(this));
+
+        // panel.arrow_down.getDomElement().style.width = view.getImage(this).style.width;
+        // panel.arrow_down.getDomElement().style.height = view.getImage(this).style.height;
+        // panel.arrow_up.getDomElement().style.width = view.getImage(this).style.width;
+        // panel.arrow_up.getDomElement().style.height = view.getImage(this).style.height;
+        // console.log(panel.arrow_down.getDomElement().height);
+
         data.setSrc(view.findImg(this));
-        panel_height = getComputedStyle(panel.getElement()).height;
+        panel_height = view.getImageHeight(this) * 2 + 5 +'px';
+        console.log(panel_height);
+        //panel_height = getComputedStyle(panel.getElement()).height;
         data.setAreaHeight(panel_height);
         chrome.storage.sync.get(function (items) {
-          console.log('area_height = ' + items.area_height);
           if (items.position === 'center_right' || items.position === 'center_left') {
             panel.resetPosition(panel_height);
           }

@@ -142,9 +142,7 @@ function Container(options) {
         style.bottom = null;
         style.right = '20px';
         if (!top) this.resetPosition();
-        console.log(top);
         if (top) {
-          console.log(top);
           this.resetPosition(top);
         }
         break;
