@@ -84,16 +84,6 @@ function Container(options) {
     element.appendChild(arrow.getDomElement());
   };
 
-  this.presetPosition = function () {
-    chrome.storage.sync.get(function (items) {
-      if (items.position === 'center_right' || items.position === 'center_left') {
-        var preset_height = items.area_height || '105px';
-        preset_height = parseInt(preset_height);
-        style.top = window.innerHeight / 2 - preset_height / 2 + 'px';
-      }
-    });
-  };
-
   this.resetPosition = function (area_height) {
     if (area_height) {
       area_height = parseInt(area_height);
@@ -171,7 +161,6 @@ function Container(options) {
 
   chrome.storage.sync.get(function (items) {
     that.setPosition(items.position || 'bottom_right');
-    //that.presetPosition();
   });
 
   this.updatePosition = function () {
