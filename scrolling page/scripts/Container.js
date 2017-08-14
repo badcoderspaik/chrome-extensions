@@ -150,10 +150,7 @@ function Container(options) {
         style.left = null;
         style.bottom = null;
         style.right = '20px';
-        if (!top) this.resetPosition();
-        if (top) {
-          this.resetPosition(top);
-        }
+        this.resetPosition(top);
         break;
 
       case 'center_left':
