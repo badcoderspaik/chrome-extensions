@@ -76,6 +76,11 @@ var OPTIONS = (function (opt) {
 
       getSpeed = function () {
         return settings.speed;
+      },
+
+      setMessage = function (message, node) {
+        node.textContent = chrome.i18n.getMessage(message);
+        return this;
       };
 
     return {
@@ -98,7 +103,10 @@ var OPTIONS = (function (opt) {
       getOpacity: getOpacity,
 
       setSpeed: setSpeed,
-      getSpeed: getSpeed
+      getSpeed: getSpeed,
+
+      setMessage: setMessage,
+      set: setMessage
 
     }
 

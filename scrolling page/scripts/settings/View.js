@@ -9,11 +9,16 @@ var OPTIONS = (function (opt) {
       opacity_range = document.querySelector('#opacity_range'),
       speed_range = document.querySelector('#speed_range'),
       speed_output = document.querySelector('#speed_output'),
+      opacity_message = document.getElementById('opacity_message'),
+      speed_message = document.getElementById('speed_message'),
+      area_message = document.getElementById('area_message'),
       area_height,
       element_width,
       pos_center_bottom,
       pos_center_right,
       pos_center_left,
+      title = document.querySelector('title'),
+      caption = document.querySelector('caption h1');
 
       setCenterRight = function (area_height) {
         chrome.storage.sync.get(function (items) {
@@ -45,6 +50,13 @@ var OPTIONS = (function (opt) {
     setCenterRight();
     setCenterLeft();
     setCenterBottom();
+
+    data.setMessage('title', title).
+      set('caption_message', caption).
+      set('opacity_message', opacity_message).
+      set('speed_message', speed_message).
+      set('areas_message', area_message);
+    speed_message.appendChild(speed_output);
 
     data.getSrcObserver().addObserver(function () {
       panel.arrow_down.setSrc(data.getSrc());
