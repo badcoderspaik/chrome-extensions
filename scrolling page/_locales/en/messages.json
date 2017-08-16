@@ -1,9 +1,23 @@
 {
+  "name": {
+    "message": "Scroll buttons"
+  },
+  "about": {
+    "message": "Customizable scroll up and down buttons"
+  },
   "title": {
     "message": "Settings page"
   },
-
-  "caption": {
-    "message": "Select buttons image"
+  "caption_message": {
+    "message": "Select button image"
+  },
+  "opacity_message": {
+    "message": "Set the transparency of the buttons using the slider"
+  },
+  "speed_message": {
+    "message": "Set the scrolling speed using the slider"
+  },
+  "areas_message": {
+    "message": "Select the location of the buttons by clicking on one of the seven red zones"
   }
 }
