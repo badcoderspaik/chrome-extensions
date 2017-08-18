@@ -71,7 +71,7 @@ function Container(options) {
    */
   style.opacity = 0;
   chrome.storage.sync.get(function (items) {
-    style.opacity = items.opacity || 0.5;
+    style.opacity = items.opacity || 0.2;
   })
 
   element.style.transition = 'opacity 0.5s cubic-bezier(0, .5, .5, 1)';
@@ -259,8 +259,7 @@ function Container(options) {
   document.body.appendChild(element);
 
   window.addEventListener('resize', function () {
-    console.log('_pos = ' + _position);
-    console.log('_height = ' + _height);
+    console.log(that.get_Position());
     if (that.get_Position() === 'center_right' || that.get_Position() === 'center_left') {
       that.resetPosition(_height);
     }

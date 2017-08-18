@@ -89,8 +89,6 @@ var OPTIONS = (function (opt) {
       view.updateCenterRight(panel_height);
       if (position === 'center_right' || position === 'center_left') {
         panel.resetPosition(panel_height);
-        console.log('position = ' + position);
-        console.log('panel_height = ' + panel_height);
       }
     }, false);
 
