@@ -41,7 +41,10 @@ function Container(options) {
      * @property position
      * @type {String}
      */
-    position = options.position || 'bottom_right';
+    _position;
+  chrome.storage.sync.get(function (items) {
+    _position = items.position;
+  });
   /**
    * html-класс dom элемента контейнера
    * @private
@@ -109,6 +112,7 @@ function Container(options) {
   this.setPosition = function (position, top) {
     switch (position) {
       case 'bottom_right':
+        _position = 'bottom_right';
         style.left = null;
         style.top = null;
         style.right = '20px';
@@ -116,6 +120,7 @@ function Container(options) {
         break;
 
       case 'top_right':
+        _position = 'top_right';
         style.left = null;
         style.bottom = null;
         style.right = '20px';
@@ -123,6 +128,7 @@ function Container(options) {
         break;
 
       case 'bottom_left':
+        _position = 'bottom_left';
         style.right = null;
         style.top = null;
         style.left = '20px';
@@ -130,6 +136,7 @@ function Container(options) {
         break;
 
       case 'top_left':
+        _position = 'top_left';
         style.right = null;
         style.bottom = null;
         style.left = '20px';
@@ -137,6 +144,7 @@ function Container(options) {
         break;
 
       case 'center_right':
+        _position = 'center_right';
         style.left = null;
         style.bottom = null;
         style.right = '20px';
@@ -144,6 +152,7 @@ function Container(options) {
         break;
 
       case 'center_left':
+        _position = 'center_left';
         style.right = null;
         style.bottom = null;
         style.left = '20px';
@@ -151,12 +160,17 @@ function Container(options) {
         break;
 
       case 'center_bottom':
+        _position = 'center_bottom';
         style.right = null;
         style.top = null;
         style.left = window.innerWidth / 2 - 30 + 'px';
         style.bottom = '20px';
         break;
     }
+  };
+
+  this.get_Position = function () {
+    return _position;
   };
 
   chrome.storage.sync.get(function (items) {
@@ -169,12 +183,6 @@ function Container(options) {
 
   this.getElement = function () {
     return element;
-  };
-
-  window.onresize = function () {
-    if (position == 'center_bottom') {
-      that.updatePosition();
-    }
   };
   /**
    * Отображает контейнер
@@ -247,5 +255,12 @@ function Container(options) {
 
 
   document.body.appendChild(element);
+
+  window.addEventListener('resize', function () {
+    if (that.get_Position() == 'center_bottom') {
+      that.updatePosition();
+      console.log(that.get_Position());
+    }
+  }, false);
 
 }

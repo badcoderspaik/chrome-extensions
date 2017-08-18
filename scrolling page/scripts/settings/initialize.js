@@ -20,5 +20,13 @@ var OPTIONS = (function (opt) {
     opacity_range.value = items.opacity || 0.5;
     speed_range.value = items.speed || 200;
     speed_output.textContent = items.speed ? items.speed + 'px' : speed_range.value + 'px';
+
+    window.addEventListener('resize', function () {
+      opt.View.setCenterBottom();
+      // if (panel.get_Position() == 'center_bottom') {
+      //   panel.updatePosition();
+      // }
+    }, false);
+
   });
 }(OPTIONS || {}));

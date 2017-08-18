@@ -18,7 +18,7 @@ var OPTIONS = (function (opt) {
       pos_center_right,
       pos_center_left,
       title = document.querySelector('title'),
-      caption = document.querySelector('caption h1');
+      caption = document.querySelector('caption h1'),
 
       setCenterRight = function (area_height) {
         chrome.storage.sync.get(function (items) {
@@ -40,6 +40,20 @@ var OPTIONS = (function (opt) {
 
       },
 
+      updateCenterRight = function (area_height) {
+        area_height = parseInt(area_height);
+        pos_center_right = window.innerHeight / 2 - area_height / 2;
+        area_center_right.style.right = '20px';
+        area_center_right.style.top = pos_center_right + 'px';
+      },
+
+      updateCenterLeft = function (area_height) {
+        area_height = parseInt(area_height);
+        pos_center_left = window.innerHeight / 2 - area_height / 2;
+        area_center_left.style.left = '20px';
+        area_center_left.style.top = pos_center_left + 'px';
+      },
+
       setCenterBottom = function () {
         element_width = parseInt(panel.getElement().style.width);
         pos_center_bottom = (window.innerWidth / 2 - element_width / 2);
@@ -51,11 +65,7 @@ var OPTIONS = (function (opt) {
     setCenterLeft();
     setCenterBottom();
 
-    data.setMessage('title', title).
-      set('caption_message', caption).
-      set('opacity_message', opacity_message).
-      set('speed_message', speed_message).
-      set('areas_message', area_message);
+    data.setMessage('title', title).set('caption_message', caption).set('opacity_message', opacity_message).set('speed_message', speed_message).set('areas_message', area_message);
     speed_message.appendChild(speed_output);
 
     data.getSrcObserver().addObserver(function () {
@@ -109,7 +119,10 @@ var OPTIONS = (function (opt) {
       },
 
       setCenterRight: setCenterRight,
-      setCenterLeft: setCenterLeft
+      setCenterLeft: setCenterLeft,
+      setCenterBottom: setCenterBottom,
+      updateCenterLeft: updateCenterLeft,
+      updateCenterRight: updateCenterRight
 
     };
   }(opt.Model));

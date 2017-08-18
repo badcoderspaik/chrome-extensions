@@ -9,7 +9,13 @@ var OPTIONS = (function (opt) {
       c_length = cells.length,
       a_length = areas.length,
       panel_height,
+      position,
       i;
+
+    chrome.storage.sync.get(function (items) {
+      panel_height = items.area_height || '105px';
+      position = items.position || 'bottom_right';
+    });
 
     for (i = 0; i < c_length; i++) {
       cells[i].onmousedown = function () {
@@ -57,7 +63,7 @@ var OPTIONS = (function (opt) {
         chrome.storage.sync.get(function (items) {
           var height = items.area_height || '105px';
           data.setPosition(that.id, height);
-
+          position = data.getPosition();
         });
       };
     }
@@ -76,7 +82,17 @@ var OPTIONS = (function (opt) {
 
     speed_range.oninput = function () {
       speed_output.textContent = this.value + 'px';
-    }
+    };
+
+    window.addEventListener('resize', function () {
+      view.updateCenterLeft(panel_height);
+      view.updateCenterRight(panel_height);
+      if (position === 'center_right' || position === 'center_left') {
+        panel.resetPosition(panel_height);
+        console.log('position = ' + position);
+        console.log('panel_height = ' + panel_height);
+      }
+    }, false);
 
   }(opt.Model, opt.View));
 
