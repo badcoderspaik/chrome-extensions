@@ -41,9 +41,11 @@ function Container(options) {
      * @property position
      * @type {String}
      */
+    _height,
     _position;
   chrome.storage.sync.get(function (items) {
     _position = items.position;
+    _height = items.area_height;
   });
   /**
    * html-класс dom элемента контейнера
@@ -257,9 +259,13 @@ function Container(options) {
   document.body.appendChild(element);
 
   window.addEventListener('resize', function () {
+    console.log('_pos = ' + _position);
+    console.log('_height = ' + _height);
+    if (that.get_Position() === 'center_right' || that.get_Position() === 'center_left') {
+      that.resetPosition(_height);
+    }
     if (that.get_Position() == 'center_bottom') {
       that.updatePosition();
-      console.log(that.get_Position());
     }
   }, false);
 
