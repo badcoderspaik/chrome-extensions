@@ -72,14 +72,11 @@ function Container(options) {
   style.opacity = 0;
   chrome.storage.sync.get(function (items) {
     style.opacity = items.opacity || 0.2;
-  })
+  });
 
   element.style.transition = 'opacity 0.5s cubic-bezier(0, .5, .5, 1)';
   style.zIndex = 9999999999;
   style.width = '60px';
-  // chrome.storage.sync.get(function (items) {
-  //   style.height = items.area_height || '105px';
-  // });
   /**
    * Добавляет в контейнер dom элемент с изображением стрелки
    * @method add
@@ -103,7 +100,6 @@ function Container(options) {
       });
     }
   };
-
   /**
    * Устанавливает позицию контейнера на странице
    * @method setPosition
@@ -233,7 +229,6 @@ function Container(options) {
    * @type {Arrow}
    */
   this.arrow_up = new Arrow({
-    //src: chrome.runtime.getURL('img/arrows/simple.png'),
     type: 'arrow_up',
     speed: 200,
     margin: true
@@ -244,7 +239,6 @@ function Container(options) {
    * @type {Arrow}
    */
   this.arrow_down = new Arrow({
-    //src: chrome.runtime.getURL('img/arrows/simple.png'),
     type: 'arrow_down',
     is_arrow_down: true,
     speed: 200,
@@ -254,7 +248,6 @@ function Container(options) {
 
   this.add(this.arrow_up);
   this.add(this.arrow_down);
-
 
   document.body.appendChild(element);
 

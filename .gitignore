@@ -1,10 +1,10 @@
-.gitignore
+node_modules
+npm-debug.log
 display passwords(old)
 .idea
 scrolling the page
 ресурсы
 yuidoc.json
-out
-package.json
-doc.txt
+dist
+apidocs
 

@@ -1,0 +1,20 @@
+{
+  "name": "scrolling_page",
+  "version": "1.0.0",
+  "description": "chrome extensions - scrolling the page buttons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Timofeev",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-docco": "0.0.4",
+    "gulp-uncomment": "^0.3.0",
+    "gulp-uncomment-it": "^1.0.0",
+    "gulp-yuidoc": "^0.1.2"
+  }
+}

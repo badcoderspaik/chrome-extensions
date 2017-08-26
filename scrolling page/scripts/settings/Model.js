@@ -1,6 +1,15 @@
 var OPTIONS = (function (opt) {
-
+  /**
+   * Реализация Модели приложения настроек
+   * @class Model
+   * @parent OPTIONS
+   */
   opt.Model = (function () {
+    /**
+     * @private
+     * @property settings
+     * @type {Object}
+     */
     var settings = {},
       srcObserver = new opt.Observer,
       areaObserver = new opt.Observer,

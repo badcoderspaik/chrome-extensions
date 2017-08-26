@@ -24,7 +24,6 @@ var up_jumping = false;
  * @default false
  */
 var down_jumping = false;
-
 /**
  * Класс объекта, содержащего кнопку с изображением стрелки
  * @class Arrow
@@ -60,13 +59,6 @@ function Arrow(options) {
     _speed = items.speed || options.speed;
   });
   /**
-   * Атрибут alt изображения стрелки
-   * @property element.alt
-   * @type {string}
-   * @default 'up'
-   */
-  //element.alt = options.alt || 'up';
-  /**
    * Атрибут src - путь к файлу изображения стрелки.</br>
    * Настраиваемое свойство: задается через параметр options.alt конструктора класса
    * @property element.src
@@ -76,7 +68,6 @@ function Arrow(options) {
   chrome.storage.sync.get(function (items) {
     element.src = items.src || chrome.runtime.getURL('img/arrows/simple.png');
   });
-
   /**
    * Атрибут class изображения.</br>
    * Настраиваемое свойство: задается через параметр options.src конструктора класса.
@@ -103,7 +94,6 @@ function Arrow(options) {
    */
   element.style.margin = 'auto';
   element.style.cursor = 'pointer';
-  //element.style.width = '50px';
   if (options.is_arrow_down && options.is_arrow_down === true) element.style.transform = 'rotate(180deg)';
   /**
    *Высота страницы
@@ -124,7 +114,6 @@ function Arrow(options) {
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
       );
-      //alert(page_height);
     });
   observer.observe(document.documentElement, {
     childList: true,
@@ -165,7 +154,7 @@ function Arrow(options) {
    */
   this.setSrc = function (src) {
     element.src = src;
-  }
+  };
   /**
    * Обработчик нажатия кнопки "вверх".</br>
    * Сбрасывает интервал прокрутки (если таковой запущен) вниз,</br>
@@ -190,7 +179,6 @@ function Arrow(options) {
       }
     }, 10);
   }
-
   /**
    * Обработчик нажатия кнопки "вниз".</br>
    * Сбрасывает интервал прокрутки (если таковой запущен) вверх,</br>
@@ -229,7 +217,6 @@ function Arrow(options) {
     }, 10);
 
   }
-
   /**
    * Срабатывает при нажатии на кнопки-стрелки "вверх/вниз".</br>
    * Если класс элемента, на котором произошло событие клика равен 'arrow_up', значит нажата кнопка "вверх".</br>
