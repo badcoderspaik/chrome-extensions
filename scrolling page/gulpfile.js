@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
   yuidoc = require('gulp-yuidoc'),
-  docco = require('gulp-docco'),
   uncomment = require('gulp-uncomment');
 
 tasks = [
@@ -20,12 +19,6 @@ tasks = [
     manifest: ['manifest.json'],
     img: ['img/**/']
   };
-
-gulp.task('docco', function () {
-  return gulp.src('scripts/**/*.js')
-    .pipe(docco())
-    .pipe(gulp.dest('docco_doc'))
-})
 
 gulp.task('img', function () {
   gulp.src(paths.img)
