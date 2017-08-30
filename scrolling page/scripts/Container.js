@@ -241,8 +241,7 @@ function Container(options) {
   this.arrow_down = new Arrow({
     type: 'arrow_down',
     is_arrow_down: true,
-    speed: 200,
-    alt: 'down',
+    speed: 200
   });
   style.height = parseInt(getComputedStyle(this.arrow_up.getDomElement()).height);
 

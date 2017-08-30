@@ -6,14 +6,53 @@ var OPTIONS = (function (opt) {
    */
   opt.Model = (function () {
     /**
+     * Объект, хранящийся в локальном хранилище chrome.sync.storage.<br>
+     * Запись в объект производится функцией chrome.sync.storage.set.<br>
+     * Чтение объекта производится функцией chrome.sync.storage.get.<br>
+     * settings.src - путь к файлу изображения кнопок,<br>
+     * settings.src - строка, определяющая положение родительского элемента-контейнера кнопок.<br>
+     * Может принимать одно из следующих значений:<br>
+     * bottom_right,<br>
+     * center_right,<br>
+     * top_left,<br>
+     * bottom_left,<br>
+     * center_left,<br>
+     * top_left,<br>
+     * center_bottom.
+     *
+     * settigs.area_height - высота areas - зон расположения кнопок.
+     *
+     * settings.speed - скорость прокрутки
      * @private
      * @property settings
      * @type {Object}
      */
     var settings = {},
+      /**
+       * Объект класса Observer. Следит за изменением изображения кнопок
+       * @private
+       * @property srcObserver
+       * @type {Observer}
+       */
       srcObserver = new opt.Observer,
+      /**
+       * Объект класса Observer. Следит за изменением высоты areas - зон расположения кнопок
+       * @private
+       * @property areaObserver
+       * @type {Observer}
+       */
       areaObserver = new opt.Observer,
+      /**
+       * Объект класса Observer. Следит за изменением прозрачности Container - родительского блока кнопок
+       * @private
+       * @property opacityObserver
+       * @type {Observer}
+       */
       opacityObserver = new opt.Observer,
+      /**
+       *
+       * @type {Observer}
+       */
       speedObserver = new opt.Observer,
       speed_output_observer = new opt.Observer,
 
