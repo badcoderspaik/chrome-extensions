@@ -1,4 +1,4 @@
-node_modules
+﻿node_modules
 npm-debug.log
 display passwords(old)
 .idea
@@ -7,4 +7,5 @@ scrolling the page
 yuidoc.json
 dist
 apidocs
+ресурсы для dashboard
 
