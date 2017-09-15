@@ -10,8 +10,7 @@
  * Степень прозрачности контейнера также может быть задана методом setOpacity ( Number opacity ) объекта класса
  * @constructor
  */
-function Container(options) {
-  options = options || {};
+function Container() {
   /**
    * dom элемент контейнера
    * @private
@@ -42,10 +41,12 @@ function Container(options) {
      * @type {String}
      */
     _height,
-    _position;
+    _position,
+    visibility;
   chrome.storage.sync.get(function (items) {
     _position = items.position;
     _height = items.area_height;
+    visibility = items.visibility || true;
   });
   /**
    * html-класс dom элемента контейнера
@@ -77,6 +78,7 @@ function Container(options) {
   element.style.transition = 'opacity 0.5s cubic-bezier(0, .5, .5, 1)';
   style.zIndex = 9999999999;
   style.width = '60px';
+  style.display = 'block';
   /**
    * Добавляет в контейнер dom элемент с изображением стрелки
    * @method add
@@ -196,6 +198,10 @@ function Container(options) {
   this.hide = function () {
     style.display = 'none';
   };
+  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if(style.display === 'block') that.hide();
+    else if(style.display === 'none') that.show();
+  });
   /**
    * Устанавливает степень прозрачности контейнера
    * @method setOpacity
@@ -251,7 +257,6 @@ function Container(options) {
   document.body.appendChild(element);
 
   window.addEventListener('resize', function () {
-    console.log(that.get_Position());
     if (that.get_Position() === 'center_right' || that.get_Position() === 'center_left') {
       that.resetPosition(_height);
     }

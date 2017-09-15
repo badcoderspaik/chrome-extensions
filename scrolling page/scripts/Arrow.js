@@ -169,7 +169,6 @@ function Arrow(options) {
    */
   function jumpUp() {
     clearInterval(scrollDown);
-    console.log(_speed);
     up_jumping = true;
     scrollUp = setInterval(function () {
       window.scrollBy(0, -_speed);
