@@ -1,4 +1,4 @@
-var doc = window.document;
+var doc = window.document;//
 var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 function toggle() {
